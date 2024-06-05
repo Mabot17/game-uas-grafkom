@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Dice GIF</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .dice {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(0deg) rotateY(0deg);
+            transition: transform 1s;
+        }
+
+        .face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: white;
+            border: 2px solid black;
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+        }
+
+        .dot {
+            width: 15px;
+            height: 15px;
+            background: black;
+            border-radius: 50%;
+            justify-self: center;
+            align-self: center;
+        }
+
+        .one { transform: rotateY(0deg) translateZ(50px); }
+        .two { transform: rotateY(90deg) translateZ(50px); }
+        .three { transform: rotateY(180deg) translateZ(50px); }
+        .four { transform: rotateY(-90deg) translateZ(50px); }
+        .five { transform: rotateX(90deg) translateZ(50px); }
+        .six { transform: rotateX(-90deg) translateZ(50px); }
+
+        .face.one .dot {
+            grid-area: 2 / 2;
+        }
+
+        .face.two .dot:nth-child(1) {
+            grid-area: 1 / 1;
+        }
+        .face.two .dot:nth-child(2) {
+            grid-area: 3 / 3;
+        }
+
+        .face.three .dot:nth-child(1) {
+            grid-area: 1 / 1;
+        }
+        .face.three .dot:nth-child(2) {
+            grid-area: 2 / 2;
+        }
+        .face.three .dot:nth-child(3) {
+            grid-area: 3 / 3;
+        }
+
+        .face.four .dot:nth-child(1) {
+            grid-area: 1 / 1;
+        }
+        .face.four .dot:nth-child(2) {
+            grid-area: 1 / 3;
+        }
+        .face.four .dot:nth-child(3) {
+            grid-area: 3 / 1;
+        }
+        .face.four .dot:nth-child(4) {
+            grid-area: 3 / 3;
+        }
+
+        .face.five .dot:nth-child(1) {
+            grid-area: 1 / 1;
+        }
+        .face.five .dot:nth-child(2) {
+            grid-area: 1 / 3;
+        }
+        .face.five .dot:nth-child(3) {
+            grid-area: 2 / 2;
+        }
+        .face.five .dot:nth-child(4) {
+            grid-area: 3 / 1;
+        }
+        .face.five .dot:nth-child(5) {
+            grid-area: 3 / 3;
+        }
+
+        .face.six .dot:nth-child(1) {
+            grid-area: 1 / 1;
+        }
+        .face.six .dot:nth-child(2) {
+            grid-area: 1 / 2;
+        }
+        .face.six .dot:nth-child(3) {
+            grid-area: 1 / 3;
+        }
+        .face.six .dot:nth-child(4) {
+            grid-area: 3 / 1;
+        }
+        .face.six .dot:nth-child(5) {
+            grid-area: 3 / 2;
+        }
+        .face.six .dot:nth-child(6) {
+            grid-area: 3 / 3;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="dice" class="dice">
+        <div class="face one">
+            <div class="dot"></div>
+        </div>
+        <div class="face two">
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="face three">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="face four">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="face five">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="face six">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <button id="rollButton">Roll Dice</button>
+    <script>
+        const dice = document.getElementById('dice');
+        const rollButton = document.getElementById('rollButton');
+        
+        const faces = {
+            1: 'rotateX(0deg) rotateY(0deg)',
+            2: 'rotateX(0deg) rotateY(-90deg)',
+            3: 'rotateX(0deg) rotateY(180deg)',
+            4: 'rotateX(0deg) rotateY(90deg)',
+            5: 'rotateX(-90deg) rotateY(0deg)',
+            6: 'rotateX(90deg) rotateY(0deg)',
+        };
+
+        function getRandomFace() {
+            const faceNumbers = Object.keys(faces);
+            const randomIndex = Math.floor(Math.random() * faceNumbers.length);
+            return faceNumbers[randomIndex];
+        }
+
+        rollButton.addEventListener('click', () => {
+            const randomFace = getRandomFace();
+            console.log(randomFace);
+            const interval = 600; // Interval in milliseconds
+            let delay = 0;
+
+            // Iterate through each face and rotate the dice
+            for (let i = 1; i <= 6; i++) {
+                setTimeout(() => {
+                    dice.style.transform = faces[i];
+                }, delay);
+                delay += interval;
+            }
+
+            // Set the final random face after all rotations
+            setTimeout(() => {
+                dice.style.transform = faces[randomFace];
+            }, delay);
+        });
+
+    </script>
+</body>
+</html>

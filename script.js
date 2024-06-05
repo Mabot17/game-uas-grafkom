@@ -151,16 +151,18 @@ function renderBoard() {
 
 async function rollDice() {
     let result = randIntv1(6) + 1;
+    moveDice(result);
+    await new Promise(resolve => setTimeout(resolve, 3700));
 	// result = 96;
     document.getElementById("dice-results").innerText = `dice: ${result}`;
     document.getElementById("roll-dice").disabled = true;
     for (let i = 0; i < result; i++) {
-        await new Promise(resolve => setTimeout(resolve, 200));
+        await new Promise(resolve => setTimeout(resolve, 400));
         movePlayer(currentPlayer.value);
         if (checkWin(currentPlayer)) return i + 1;
     }
     document.getElementById("roll-dice").disabled = false;
-    await new Promise(resolve => setTimeout(resolve, 200));
+    await new Promise(resolve => setTimeout(resolve, 400));
     checkLadder(currentPlayer.value);
     checkSnakes(currentPlayer.value);
     currentPlayer = playerIterator.next().value;
@@ -168,8 +170,38 @@ async function rollDice() {
     return result;
 }
 
+function moveDice(randomFace){
+    const dice = document.getElementById('dice');
+    
+    const faces = {
+        1: 'rotateX(0deg) rotateY(0deg)',
+        2: 'rotateX(0deg) rotateY(-90deg)',
+        3: 'rotateX(0deg) rotateY(180deg)',
+        4: 'rotateX(0deg) rotateY(90deg)',
+        5: 'rotateX(-90deg) rotateY(0deg)',
+        6: 'rotateX(90deg) rotateY(0deg)',
+    };
+
+    console.log(randomFace);
+    const interval = 600; // Interval in milliseconds
+    let delay = 0;
+
+    // Iterate through each face and rotate the dice
+    for (let i = 1; i <= 6; i++) {
+        setTimeout(() => {
+            dice.style.transform = faces[i];
+        }, delay);
+        delay += interval;
+    }
+
+    // Set the final random face after all rotations
+    setTimeout(() => {
+        dice.style.transform = faces[randomFace];
+    }, delay);
+}
+
 function movePlayer(player) {
-	console.log(player);
+	// console.log(player);
     if (player.y % 2 == 0) {
 		if (player.x <= 0) {
             player.y--;
