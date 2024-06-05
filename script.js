@@ -320,7 +320,7 @@ function checkWin(data) {
 }
 
 function openDrawer() {
-    document.getElementById('drawer').style.width = "250px";
+    document.getElementById('drawer').style.width = "450px";
 }
 
 function closeDrawer() {
