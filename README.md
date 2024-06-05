@@ -2,4 +2,4 @@
 - Project ini dibuat untuk menyelesaikan TUGAS GRAFKOM
 
 # Sumber
-- https://yuuchin.github.io/Snakes-and-Ladders
+- https://github.com/shontzu/snakes-and-ladders
