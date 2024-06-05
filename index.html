@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Snakes and ladders</title>
+  <title>Snakes and Ladders</title>
   <link rel="stylesheet" href="./styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
   <!-- meta config for LinkedIn preview -->
@@ -25,26 +25,26 @@
     </header>
   </div>
   <div id="gameboard" class="game" hidden>
-
-    <header>
-      <h1 class="m-0">Snakes and Ladders</h1>
-      
-      <div class="controls">
-        <button id="roll-dice" class="button" onclick="rollDice()">Roll dice</button>
-        <p id="dice-results" class="inline m-0 m-lr"></p>
+    <div class="sidebar">
+      <header>
+        <h1 class="m-0">Snakes and Ladders</h1>
         
-        <div id="win" hidden style="float: right">
-          <h3 id="win-text" class="inline m-0 m-lr">You win!</h3>
-          <button class="button" onclick="restart()">Restart</button>
-        </div>
-      </div> <!-- end controls div -->
-    </header>
+        <div class="controls">
+          <button id="roll-dice" class="button" onclick="rollDice()">Roll dice</button>
+          <p id="dice-results" class="inline m-0 m-lr"></p>
+          
+          <div id="win" hidden>
+            <h3 id="win-text" class="inline m-0 m-lr">You win!</h3>
+            <button class="button" onclick="restart()">Restart</button>
+          </div>
+        </div> <!-- end controls div -->
+      </header>
+    </div>
 
     <div id="board">
 
     </div>
   </div> <!-- end game container -->
-
 
   <button class="drawerBtn" onclick="openDrawer()">?</button>
 
@@ -66,7 +66,6 @@
         <p>The first player that reaches the highest space on the board, 100, wins the game.</p>
     </ol>
   </div>
-
 
 </body>
 <script src="./script.js"></script>
