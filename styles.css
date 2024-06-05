@@ -66,40 +66,56 @@ header {
 }
 
 #board {
-  flex-grow: 1;
-  display: grid;
-  grid-template-columns: repeat(10, 68px);
-  grid-template-rows: repeat(10, 57px);
-  border: 15px ridge silver;
-  background-image: url('img/SnakeLadder.png');
-  background-size: contain; /* atau 'contain' jika ingin gambar sepenuhnya terlihat */
-  background-repeat: no-repeat;
+    display: grid;
+    grid-template-columns: repeat(10, 68px);
+    grid-template-rows: repeat(10, 57px);
+    border: 15px ridge silver;
+    background-image: url('img/SnakeLadder.png');
+    background-size: contain; /* atau 'cover' jika ingin gambar sepenuhnya terlihat */
+    background-repeat: no-repeat;
+    margin: auto; /* Agar elemen board berada di tengah secara horizontal */
 }
 
 .tile {
-  position: relative;
-  margin: 3px;
-  padding: 5px 5px;
-  font-size: x-small;
-  font-weight: bold;
-  box-sizing: border-box;
-  width: 50px;
-  height: 50px;
+    position: relative;
+    margin: 3px;
+    padding: 5px;
+    font-size: x-small;
+    font-weight: bold;
+    box-sizing: border-box;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .player {
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 30px; /* Ukuran pemain lebih besar untuk visibilitas */
+  height: 30px;
   border-radius: 50%;
-  border: 10px ridge cadetblue;
-  margin: auto;
+  border: 3px solid cadetblue; /* Ubah border menjadi lebih tipis dan solid */
   background-color: lightblue;
   z-index: 100;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Tambahkan efek bayangan */
   text-align: center;
   font-weight: bolder;
   font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease-in-out; /* Tambahkan animasi transisi */
+}
+
+.player:hover {
+  transform: scale(1.2); /* Efek zoom saat pemain dihover */
+  background-color: skyblue; /* Perubahan warna saat dihover */
+}
+
+.player.active {
+  border-color: gold; /* Warna border berbeda untuk pemain aktif */
+  box-shadow: 0 0 10px gold, 0 0 20px gold; /* Efek cahaya untuk pemain aktif */
 }
 
 .ladder-start {

@@ -57,6 +57,7 @@ const height = 10;
 const width = 10;
 
 let players = [];
+let questions = [];
 let currentPlayer, playerIterator;
 
 let ladders = [
@@ -74,6 +75,15 @@ let snakes = [
     new Snake(6, 2, 8, 4),   // Snake from 74 to 49 OKE
     new Snake(3, 0, 2, 2),   // Snake from 97 to 78 OKE
 ];
+
+async function loadQuestions() {
+    const response = await fetch('pertanyaan.txt');
+    const text = await response.text();
+    questions = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+}
+  
+// Panggil fungsi ini saat halaman dimuat
+loadQuestions();
 
 function randIntv1(x) {
     return Math.trunc((Math.random() * 100000) % x);
@@ -104,7 +114,7 @@ function startGame() {
     currentPlayer = playerIterator.next().value;
     document.querySelector("#gameboard").hidden = false;
     document.querySelector("#welcome").hidden = true;
-    document.getElementById("dice-results").innerText = `Player ${currentPlayer.idx + 1}'s turn`;
+    document.getElementById("dice-results").innerText = `Giliran Player ${currentPlayer.idx + 1}`;
     document.getElementById("roll-dice").disabled = false;
     renderBoard();
 }
@@ -151,24 +161,24 @@ function renderBoard() {
 
 async function rollDice() {
     let result = randIntv1(6) + 1;
+    // result = 3;
     moveDice(result);
     await new Promise(resolve => setTimeout(resolve, 3700));
-	// result = 96;
     document.getElementById("dice-results").innerText = `dice: ${result}`;
     document.getElementById("roll-dice").disabled = true;
     for (let i = 0; i < result; i++) {
-        await new Promise(resolve => setTimeout(resolve, 400));
-        movePlayer(currentPlayer.value);
-        if (checkWin(currentPlayer)) return i + 1;
+      await new Promise(resolve => setTimeout(resolve, 400));
+      movePlayer(currentPlayer.value);
+      if (checkWin(currentPlayer)) return i + 1;
     }
     document.getElementById("roll-dice").disabled = false;
     await new Promise(resolve => setTimeout(resolve, 400));
     checkLadder(currentPlayer.value);
     checkSnakes(currentPlayer.value);
     currentPlayer = playerIterator.next().value;
-    document.getElementById("dice-results").innerText = `Player ${currentPlayer.idx + 1}'s turn`;
+    document.getElementById("dice-results").innerText = `Giliran Player ${currentPlayer.idx + 1}`;
     return result;
-}
+  }
 
 function moveDice(randomFace){
     const dice = document.getElementById('dice');
@@ -182,7 +192,7 @@ function moveDice(randomFace){
         6: 'rotateX(90deg) rotateY(0deg)',
     };
 
-    console.log(randomFace);
+    // console.log(randomFace);
     const interval = 600; // Interval in milliseconds
     let delay = 0;
 
@@ -218,25 +228,78 @@ function movePlayer(player) {
     renderBoard();
 }
 
+function showQuestionModal(type, onCorrect, onWrong) {
+    const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+    const parts = randomQuestion.split(" | ");
+    const questionText = parts[0];
+    const correctAnswer = parts[1];
+    const answers = parts.slice(2);
+  
+    document.getElementById("question-text").innerText = questionText;
+    const answersDiv = document.getElementById("answers");
+    answersDiv.innerHTML = "";
+  
+    answers.forEach(answer => {
+      const button = document.createElement("button");
+      button.className = "btn btn-primary m-1";
+      button.innerText = answer;
+      button.onclick = () => {
+        if (answer === correctAnswer) {
+          alert("Jawaban benar!");
+          onCorrect();
+        } else {
+          alert("Jawaban salah!");
+          onWrong();
+        }
+        $('#questionModal').modal('hide');
+      };
+      answersDiv.appendChild(button);
+    });
+  
+    $('#questionModal').modal('show');
+}
+  
+  
 function checkLadder(player) {
-    ladders.forEach(ladder => {
-        if (ladder.startX == player.x && ladder.startY == player.y) {
-            player.x = ladder.endX;
-            player.y = ladder.endY;
-            renderBoard();
-        }
-    });
+    let ladder = ladders.find(l => l.startX == player.x && l.startY == player.y);
+    if (ladder) {
+      const originalX = player.x;
+      const originalY = player.y;
+      player.x = ladder.endX;
+      player.y = ladder.endY;
+  
+      showQuestionModal('ladder', () => {
+        // Jawaban benar, pemain tetap di posisi tangga akhir
+        renderBoard();
+      }, () => {
+        // Jawaban salah, kembalikan pemain ke posisi tangga awal
+        player.x = originalX;
+        player.y = originalY;
+        renderBoard();
+      });
+    }
 }
-
+  
 function checkSnakes(player) {
-    snakes.forEach(snake => {
-        if (snake.startX == player.x && snake.startY == player.y) {
-            player.x = snake.endX;
-            player.y = snake.endY;
-            renderBoard();
-        }
-    });
+    let snake = snakes.find(s => s.startX == player.x && s.startY == player.y);
+    if (snake) {
+      const originalX = player.x;
+      const originalY = player.y;
+      player.x = snake.endX;
+      player.y = snake.endY;
+  
+      showQuestionModal('snake', () => {
+          // Jawaban salah, kembalikan pemain ke posisi ular awal
+          player.x = originalX;
+          player.y = originalY;
+          renderBoard();
+        }, () => {
+          // Jawaban benar, pemain tetap di posisi ular akhir
+          renderBoard();
+      });
+    }
 }
+  
 
 function checkWin(data) {
     let player = data.value;
