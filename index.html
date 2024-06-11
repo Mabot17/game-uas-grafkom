@@ -40,11 +40,59 @@
 
   
   <div id="welcome" class="game">
-    <header>
+    <header class="game-header">
       <h1>MULAI ULAR TANGGA NUSANTARA</h1>
-      <p>Untuk Memulai Permainan: Masukkan jumlah Pemain dan klik `Mulai`</p>
+      <p>Untuk Memulai Permainan: Masukkan jumlah Pemain, Pilih Papan, dan klik `Mulai`</p>
+      <div class="container">
+        <div class="row">
+          <div class="col-md">
+            <label class="radio-img-container">
+              <input type="radio" id="board-select1" name="board-radio" value="board" checked>
+              <img src="img/SnakeLadder.png" alt="Board 1">
+              <label for="board-select1">Papan 1</label>
+            </label>
+          </div>
+          <div class="col-md">
+            <label class="radio-img-container">
+              <input type="radio" id="board-select2" name="board-radio" value="board2">
+              <img src="img/SnakeLadder2.png" alt="Board 2">
+              <label for="board-select2">Papan 2</label>
+            </label>
+          </div>
+          <div class="col-md">
+            <label class="radio-img-container">
+              <input type="radio" id="board-select3" name="board-radio" value="board3">
+              <img src="img/SnakeLadder3.png" alt="Board 3">
+              <label for="board-select3">Papan 3</label>
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md">
+            <label class="radio-img-container">
+              <input type="radio" id="board-select4" name="board-radio" value="board4">
+              <img src="img/SnakeLadder4.png" alt="Board 4">
+              <label for="board-select4">Papan 4</label>
+            </label>
+          </div>
+          <div class="col-md">
+            <label class="radio-img-container">
+              <input type="radio" id="board-select5" name="board-radio" value="board5">
+              <img src="img/SnakeLadder5.jpeg" alt="Board 5">
+              <label for="board-select5">Papan 5</label>
+            </label>
+          </div>
+          <div class="col-md">
+            <label class="radio-img-container">
+              <input type="radio" id="board-select6" name="board-radio" value="board6">
+              <img src="img/SnakeLadder6.png" alt="Board 6">
+              <label for="board-select6">Papan 6</label>
+            </label>
+          </div>
+        </div>
+      </div>
       <input id="player-num" type="number" min="2" max="4" value="2" />
-      <button onclick="startGame()">Mulai</button>
+      <button class="btn btn-primary" onclick="startGame()">Mulai</button>
     </header>
   </div>
   <div id="gameboard" class="game" hidden>
@@ -99,9 +147,12 @@
       </header>
     </div>
 
-    <div id="board">
-
-    </div>
+    <div id="board" class="board"></div>
+    <div id="board2" class="board"></div>
+    <div id="board3" class="board"></div>
+    <div id="board4" class="board"></div>
+    <div id="board5" class="board"></div>
+    <div id="board6" class="board"></div>
   </div> <!-- end game container -->
 
   <button class="drawerBtn" onclick="openDrawer()">?</button>

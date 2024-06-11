@@ -76,6 +76,61 @@ header {
     margin: auto; /* Agar elemen board berada di tengah secara horizontal */
 }
 
+#board2 {
+    display: grid;
+    grid-template-columns: repeat(10, 68px);
+    grid-template-rows: repeat(10, 57px);
+    border: 15px ridge silver;
+    background-image: url('img/SnakeLadder2.png');
+    background-size: contain; /* atau 'cover' jika ingin gambar sepenuhnya terlihat */
+    background-repeat: no-repeat;
+    margin: auto; /* Agar elemen board berada di tengah secara horizontal */
+}
+
+#board3 {
+    display: grid;
+    grid-template-columns: repeat(10, 68px);
+    grid-template-rows: repeat(10, 57px);
+    border: 15px ridge silver;
+    background-image: url('img/SnakeLadder3.png');
+    background-size: contain; /* atau 'cover' jika ingin gambar sepenuhnya terlihat */
+    background-repeat: no-repeat;
+    margin: auto; /* Agar elemen board berada di tengah secara horizontal */
+}
+
+#board4 {
+    display: grid;
+    grid-template-columns: repeat(10, 68px);
+    grid-template-rows: repeat(10, 57px);
+    border: 15px ridge silver;
+    background-image: url('img/SnakeLadder4.png');
+    background-size: contain; /* atau 'cover' jika ingin gambar sepenuhnya terlihat */
+    background-repeat: no-repeat;
+    margin: auto; /* Agar elemen board berada di tengah secara horizontal */
+}
+
+#board5 {
+    display: grid;
+    grid-template-columns: repeat(10, 68px);
+    grid-template-rows: repeat(10, 57px);
+    border: 15px ridge silver;
+    background-image: url('img/SnakeLadder5.jpeg');
+    background-size: contain; /* atau 'cover' jika ingin gambar sepenuhnya terlihat */
+    background-repeat: no-repeat;
+    margin: auto; /* Agar elemen board berada di tengah secara horizontal */
+}
+
+#board6 {
+    display: grid;
+    grid-template-columns: repeat(10, 68px);
+    grid-template-rows: repeat(10, 57px);
+    border: 15px ridge silver;
+    background-image: url('img/SnakeLadder6.png');
+    background-size: contain; /* atau 'cover' jika ingin gambar sepenuhnya terlihat */
+    background-repeat: no-repeat;
+    margin: auto; /* Agar elemen board berada di tengah secara horizontal */
+}
+
 .tile {
     position: relative;
     margin: 3px;
@@ -106,6 +161,50 @@ header {
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease-in-out; /* Tambahkan animasi transisi */
+}
+
+/* CSS untuk radio button */
+.game-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.radio-img-container {
+  position: relative;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border: 2px solid transparent;
+  display: inline-block; /* Membuat radio button tampil berdampingan */
+}
+
+.radio-img-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.radio-img-container img {
+  width: 100%; /* Lebar maksimum */
+  max-width: 100px; /* Lebar maksimum 100px */
+  height: auto;
+  border: 2px solid transparent; /* Tambahkan border */
+  transition: border-color 0.3s; /* Transisi warna border */
+}
+
+.radio-img-container label {
+  display: block;
+  text-align: center;
+  margin-top: 5px;
+}
+
+/* Gaya untuk menampilkan border biru saat terpilih */
+.radio-img-container input:checked + img {
+  border-color: blue;
+}
+
+/* Gaya untuk menampilkan border biru pada hover */
+.radio-img-container img:hover {
+  border-color: lightblue;
 }
 
 .player:hover {

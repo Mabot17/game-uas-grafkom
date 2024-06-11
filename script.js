@@ -1,5 +1,5 @@
 const cssColorsOriginal = ["lightblue", "lightgray", "pink", "red", "yellow"];
-let cssColors = cssColorsOriginal;
+let cssColors = [...cssColorsOriginal];
 
 class Player {
     constructor(x, y, id) {
@@ -81,7 +81,7 @@ async function loadQuestions() {
     const text = await response.text();
     questions = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
 }
-  
+
 // Panggil fungsi ini saat halaman dimuat
 loadQuestions();
 
@@ -102,7 +102,7 @@ function* cyclicIterator(v) {
 function startGame() {
     let selector = document.querySelector("#player-num");
     if (!selector.checkValidity()) {
-        alert("Please select a valid number from 2 to 4");
+        alert("Mohon masukkan angka 2 - 4 pemain");
         selector.valueAsNumber = 2;
         return;
     }
@@ -112,19 +112,30 @@ function startGame() {
     }
     playerIterator = cyclicIterator(players);
     currentPlayer = playerIterator.next().value;
+
+    // Get the selected board ID
+    let boardId = document.querySelector('input[name="board-radio"]:checked').value;
+
+    // Hide all boards and show the selected one
+    let boards = document.querySelectorAll(".board");
+    boards.forEach(board => board.hidden = true);
+    document.getElementById(boardId).hidden = false;
+
     document.querySelector("#gameboard").hidden = false;
     document.querySelector("#welcome").hidden = true;
     document.getElementById("dice-results").innerText = `Giliran Player ${currentPlayer.idx + 1}`;
     document.getElementById("roll-dice").disabled = false;
-    renderBoard();
+    renderBoard(boardId);
 }
+
+
 
 function restart() {
     document.getElementById("win").hidden = true;
     document.querySelector("#gameboard").hidden = true;
     document.querySelector("#welcome").hidden = false;
     players = [];
-    cssColors = cssColorsOriginal;
+    cssColors = [...cssColorsOriginal];
     currentPlayer = undefined;
     playerIterator = undefined;
 }
@@ -141,8 +152,10 @@ function initializeBoard() {
     return board;
 }
 
-function renderBoard() {
-    let output = document.getElementById("board");
+function renderBoard(boardId) {
+    let output = document.getElementById(boardId);
+    // console.log(output);
+    // console.log(boardId);
     output.innerHTML = "";
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
@@ -161,7 +174,7 @@ function renderBoard() {
 
 async function rollDice() {
     let result = randIntv1(6) + 1;
-    // result = 3;
+    result = 3;
     moveDice(result);
     await new Promise(resolve => setTimeout(resolve, 3700));
     document.getElementById("dice-results").innerText = `dice: ${result}`;
@@ -180,9 +193,9 @@ async function rollDice() {
     return result;
   }
 
-function moveDice(randomFace){
+function moveDice(randomFace) {
     const dice = document.getElementById('dice');
-    
+
     const faces = {
         1: 'rotateX(0deg) rotateY(0deg)',
         2: 'rotateX(0deg) rotateY(-90deg)',
@@ -192,7 +205,6 @@ function moveDice(randomFace){
         6: 'rotateX(90deg) rotateY(0deg)',
     };
 
-    // console.log(randomFace);
     const interval = 600; // Interval in milliseconds
     let delay = 0;
 
@@ -211,9 +223,8 @@ function moveDice(randomFace){
 }
 
 function movePlayer(player) {
-	// console.log(player);
     if (player.y % 2 == 0) {
-		if (player.x <= 0) {
+        if (player.x <= 0) {
             player.y--;
         } else {
             player.x--;
@@ -225,7 +236,8 @@ function movePlayer(player) {
             player.x++;
         }
     }
-    renderBoard();
+    // Pass the current board ID to renderBoard
+    renderBoard(document.querySelector('input[name="board-radio"]:checked').value);
 }
 
 function showQuestionModal(type, onCorrect, onWrong) {
@@ -258,65 +270,56 @@ function showQuestionModal(type, onCorrect, onWrong) {
   
     $('#questionModal').modal('show');
 }
-  
-  
+
 function checkLadder(player) {
     let ladder = ladders.find(l => l.startX == player.x && l.startY == player.y);
     if (ladder) {
-      const originalX = player.x;
-      const originalY = player.y;
-      player.x = ladder.endX;
-      player.y = ladder.endY;
-  
-      showQuestionModal('ladder', () => {
-        // Jawaban benar, pemain tetap di posisi tangga akhir
-        renderBoard();
-      }, () => {
-        // Jawaban salah, kembalikan pemain ke posisi tangga awal
-        player.x = originalX;
-        player.y = originalY;
-        renderBoard();
-      });
+        const originalX = player.x;
+        const originalY = player.y;
+        player.x = ladder.endX;
+        player.y = ladder.endY;
+
+        showQuestionModal('ladder', () => {
+            // Jawaban benar, pemain tetap di posisi tangga akhir
+            renderBoard(document.querySelector('input[name="board-radio"]:checked').value);
+        }, () => {
+            // Jawaban salah, kembalikan pemain ke posisi tangga awal
+            player.x = originalX;
+            player.y = originalY;
+            renderBoard(document.querySelector('input[name="board-radio"]:checked').value);
+        });
     }
 }
-  
+
 function checkSnakes(player) {
     let snake = snakes.find(s => s.startX == player.x && s.startY == player.y);
     if (snake) {
-      const originalX = player.x;
-      const originalY = player.y;
-      player.x = snake.endX;
-      player.y = snake.endY;
-  
-      showQuestionModal('snake', () => {
-          // Jawaban salah, kembalikan pemain ke posisi ular awal
-          player.x = originalX;
-          player.y = originalY;
-          renderBoard();
+        const originalX = player.x;
+        const originalY = player.y;
+        player.x = snake.endX;
+        player.y = snake.endY;
+
+        showQuestionModal('snake', () => {
+            // Jawaban benar, pemain tetap di posisi ular akhir
+            renderBoard(document.querySelector('input[name="board-radio"]:checked').value);
         }, () => {
-          // Jawaban benar, pemain tetap di posisi ular akhir
-          renderBoard();
-      });
+            // Jawaban salah, kembalikan pemain ke posisi ular awal
+            player.x = originalX;
+            player.y = originalY;
+            renderBoard(document.querySelector('input[name="board-radio"]:checked').value);
+        });
     }
 }
-  
 
-function checkWin(data) {
-    let player = data.value;
-    let idx = data.idx;
-    if (height % 2 == 0) {
-        if (player.y <= 0 && player.x <= 0) {
-            document.getElementById("win").hidden = false;
-            document.getElementById("win-text").innerHTML = `Player ${idx + 1} wins`;
-            return true;
-        }
-    } else {
-		if (player.y <= 0 && player.x >= width - 1) {
-            document.getElementById("win").hidden = false;
-            document.getElementById("win-text").innerHTML = `Player ${idx + 1} wins`;
-            return true;
-        }
+
+function checkWin(player) {
+    if (player.y == 0 && player.x == 0) {
+        let winner = currentPlayer.idx + 1;
+        document.getElementById("winner").innerText = `Player ${winner} won!`;
+        document.getElementById("win").hidden = false;
+        return true;
     }
+    return false;
 }
 
 function openDrawer() {
