@@ -272,7 +272,7 @@ function renderBoard(boardId) {
 
 async function rollDice() {
     let result = randIntv1(6) + 1;
-    // result = 9;
+    // result = 99;
     moveDice(result);
     await new Promise(resolve => setTimeout(resolve, 3700));
     document.getElementById("dice-results").innerText = `dice: ${result}`;
@@ -441,11 +441,15 @@ function checkSnakes(player) {
 }
 
 
-function checkWin(player) {
+function checkWin(pion) {
+    let player = pion.value;
+    // console.log(player.y);
+    // console.log(player.x);
     if (player.y == 0 && player.x == 0) {
-        let winner = currentPlayer.idx + 1;
-        document.getElementById("winner").innerText = `Player ${winner} won!`;
-        document.getElementById("win").hidden = false;
+        let winner = pion.idx + 1;
+        if (confirm(`Player ${winner} Menang! Apakah Anda ingin memulai ulang permainan?`)) {
+            location.reload();
+        }
         return true;
     }
     return false;
