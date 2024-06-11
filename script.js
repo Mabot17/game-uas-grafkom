@@ -60,6 +60,7 @@ let players = [];
 let questions = [];
 let currentPlayer, playerIterator;
 
+//Rumah Tangga
 let ladders = [
     new Ladder(3, 9, 2, 6),  // Ladder from 4 to 38 OKE
 	new Ladder(8, 9, 8, 6),  // Ladder from 9 to 32 OKE
@@ -68,6 +69,48 @@ let ladders = [
     new Ladder(1, 4, 1, 3),  // Ladder from 59 to 62 OKE
 ];
 
+let ladders2 = [
+    new Ladder(3, 9, 2, 6),  // Ladder from 4 to 38 OKE
+	new Ladder(8, 9, 8, 6),  // Ladder from 9 to 32 OKE
+    new Ladder(4, 7, 5, 2),  // Ladder from 25 to 75 OKE
+    new Ladder(8, 4, 8, 1),  // Ladder from 52 to 89 OKE
+    new Ladder(1, 4, 1, 3),  // Ladder from 59 to 62 OKE
+    new Ladder(1, 2, 2, 0),  // Ladder from 79 to 97 OKE
+];
+
+let ladders3 = [
+    new Ladder(1, 9, 1, 7),  // Ladder from 2 to 22 
+    new Ladder(9, 8, 9, 6),  // Ladder from 11 to 31 
+    new Ladder(7, 6, 7, 2),  // Ladder from 33 to 73
+    new Ladder(4, 3, 4, 0),  // Ladder from 65 to 96
+];
+
+let ladders4 = [
+    new Ladder(3, 9, 2, 6),  // Ladder from 4 to 38
+    new Ladder(8, 9, 9, 8),  // Ladder from 9 to 32
+    new Ladder(4, 7, 5, 2),  // Ladder from 25 to 75
+    new Ladder(8, 4, 8, 1),  // Ladder from 52 to 89
+    new Ladder(1, 4, 1, 3),  // Ladder from 59 to 79
+];
+
+let ladders5 = [
+    new Ladder(3, 9, 4, 7),  // Ladder from 4 to 25
+    new Ladder(8, 9, 8, 7),  // Ladder from 9 to 29
+    new Ladder(0, 5, 1, 2),  // Ladder from 41 to 79
+    new Ladder(5, 3, 5, 0),  // Ladder from 66 to 95
+];
+
+let ladders6 = [
+    new Ladder(3, 9, 2, 6),  // Ladder from 4 to 38
+    new Ladder(9, 9, 9, 6),  // Ladder from 10 to 31
+    new Ladder(8, 7, 7, 5),  // Ladder from 29 to 48
+    new Ladder(5, 6, 4, 3),  // Ladder from 35 to 65
+    new Ladder(8, 4, 8, 1),  // Ladder from 52 to 89
+    new Ladder(1, 2, 2, 0),  // Ladder from 79 to 98
+];
+
+
+//Ulat Nusantara
 let snakes = [
     new Snake(5, 5, 6, 9),   // Snake from 46 to 7 OKE
     new Snake(0, 4, 2, 7),   // Snake from 60 to 23 OKE
@@ -75,6 +118,61 @@ let snakes = [
     new Snake(6, 2, 8, 4),   // Snake from 74 to 49 OKE
     new Snake(3, 0, 2, 2),   // Snake from 97 to 78 OKE
 ];
+
+let snakes2 = [
+    new Snake(5, 5, 6, 9),   // Snake from 46 to 7 OKE
+    new Snake(0, 4, 2, 7),   // Snake from 60 to 23 OKE
+    new Snake(9, 2, 9, 5),   // Snake from 71 to 50 OKE
+    new Snake(6, 2, 8, 4),   // Snake from 74 to 49 OKE
+    new Snake(7, 1, 8, 3),   // Snake from 88 to 69 OKE
+    new Snake(3, 0, 2, 2),   // Snake from 97 to 78 OKE
+];
+
+let snakes3 = [
+    new Snake(9, 6, 8, 8),   // Snake from 31 to 12
+    new Snake(5, 6, 4, 8),   // Snake from 35 to 16
+    new Snake(9, 5, 7, 7),   // Snake from 50 to 28
+    new Snake(1, 5, 3, 7),   // Snake from 42 to 24
+    new Snake(1, 2, 1, 5),   // Snake from 79 to 42
+    new Snake(2, 1, 5, 5),   // Snake from 83 to 46
+    new Snake(8, 1, 9, 3),   // Snake from 89 to 70
+    new Snake(2, 0, 1, 2),   // Snake from 98 to 79
+];
+
+let snakes4 = [
+    new Snake(7, 6, 4, 8),   // Snake from 33 to 16
+    new Snake(5, 5, 6, 9),   // Snake from 46 to 7
+    new Snake(2, 4, 3, 5),   // Snake from 58 to 44
+    new Snake(0, 4, 2, 7),   // Snake from 60 to 13
+    new Snake(9, 2, 9, 5),   // Snake from 71 to 50
+    new Snake(6, 2, 7, 5),   // Snake from 74 to 53
+    new Snake(9, 0, 8, 1),   // Snake from 91 to 89
+    new Snake(4, 0, 2, 2),   // Snake from 96 to 78
+];
+
+let snakes5 = [
+    new Snake(2, 8, 0, 9),  // Snake from 18 to 1
+    new Snake(4, 6, 7, 7),  // Snake from 36 to 28
+    new Snake(1, 5, 2, 8),  // Snake from 42 to 18
+    new Snake(9, 5, 8, 7),  // Snake from 50 to 29
+    new Snake(8, 4, 6, 6),  // Snake from 52 to 34
+    new Snake(6, 3, 5, 6),  // Snake from 67 to 35
+    new Snake(2, 1, 4, 4),  // Snake from 83 to 56
+    new Snake(7, 0, 8, 4),  // Snake from 93 to 52
+];
+
+let snakes6 = [
+    new Snake(7, 7, 4, 9),  // Snake from 33 to 5
+    new Snake(1, 4, 2, 7),  // Snake from 59 to 23
+    new Snake(9, 2, 9, 5),  // Snake from 71 to 50
+    new Snake(6, 2, 8, 4),  // Snake from 74 to 52
+    new Snake(7, 1, 8, 3),  // Snake from 88 to 69
+    new Snake(4, 0, 5, 3),  // Snake from 96 to 66
+    new Snake(3, 0, 2, 2),  // Snake from 97 to 78
+    new Snake(1, 0, 0, 5),  // Snake from 99 to 41
+];
+
+
 
 async function loadQuestions() {
     const response = await fetch('pertanyaan.txt');
@@ -113,10 +211,10 @@ function startGame() {
     playerIterator = cyclicIterator(players);
     currentPlayer = playerIterator.next().value;
 
-    // Get the selected board ID
+    // Cek papan yang dipilih
     let boardId = document.querySelector('input[name="board-radio"]:checked').value;
 
-    // Hide all boards and show the selected one
+    // Tampilkan board yang dipilih
     let boards = document.querySelectorAll(".board");
     boards.forEach(board => board.hidden = true);
     document.getElementById(boardId).hidden = false;
@@ -174,7 +272,7 @@ function renderBoard(boardId) {
 
 async function rollDice() {
     let result = randIntv1(6) + 1;
-    result = 3;
+    // result = 9;
     moveDice(result);
     await new Promise(resolve => setTimeout(resolve, 3700));
     document.getElementById("dice-results").innerText = `dice: ${result}`;
@@ -272,7 +370,22 @@ function showQuestionModal(type, onCorrect, onWrong) {
 }
 
 function checkLadder(player) {
-    let ladder = ladders.find(l => l.startX == player.x && l.startY == player.y);
+    let ladder;
+    
+    if (document.querySelector('input[name="board-radio"]:checked').value == 'board') {
+        ladder = ladders.find(l => l.startX == player.x && l.startY == player.y);
+    }else if (document.querySelector('input[name="board-radio"]:checked').value == 'board2') {
+        ladder = ladders2.find(l => l.startX == player.x && l.startY == player.y);
+    }else if (document.querySelector('input[name="board-radio"]:checked').value == 'board3') {
+        ladder = ladders3.find(l => l.startX == player.x && l.startY == player.y);
+    }else if (document.querySelector('input[name="board-radio"]:checked').value == 'board4') {
+        ladder = ladders4.find(l => l.startX == player.x && l.startY == player.y);
+    }else if (document.querySelector('input[name="board-radio"]:checked').value == 'board5') {
+        ladder = ladders5.find(l => l.startX == player.x && l.startY == player.y);
+    }else if (document.querySelector('input[name="board-radio"]:checked').value == 'board6') {
+        ladder = ladders6.find(l => l.startX == player.x && l.startY == player.y);
+    }
+
     if (ladder) {
         const originalX = player.x;
         const originalY = player.y;
@@ -292,7 +405,22 @@ function checkLadder(player) {
 }
 
 function checkSnakes(player) {
-    let snake = snakes.find(s => s.startX == player.x && s.startY == player.y);
+    let snake;
+    
+    if (document.querySelector('input[name="board-radio"]:checked').value == 'board') {
+        snake = snakes.find(s => s.startX == player.x && s.startY == player.y);
+    }else if (document.querySelector('input[name="board-radio"]:checked').value == 'board2') {
+        snake = snakes2.find(s => s.startX == player.x && s.startY == player.y);
+    }else if (document.querySelector('input[name="board-radio"]:checked').value == 'board3') {
+        snake = snakes3.find(s => s.startX == player.x && s.startY == player.y);
+    }else if (document.querySelector('input[name="board-radio"]:checked').value == 'board4') {
+        snake = snakes4.find(s => s.startX == player.x && s.startY == player.y);
+    }else if (document.querySelector('input[name="board-radio"]:checked').value == 'board5') {
+        snake = snakes5.find(s => s.startX == player.x && s.startY == player.y);
+    }else if (document.querySelector('input[name="board-radio"]:checked').value == 'board6') {
+        snake = snakes6.find(s => s.startX == player.x && s.startY == player.y);
+    }
+
     if (snake) {
         const originalX = player.x;
         const originalY = player.y;
@@ -300,12 +428,13 @@ function checkSnakes(player) {
         player.y = snake.endY;
 
         showQuestionModal('snake', () => {
-            // Jawaban benar, pemain tetap di posisi ular akhir
-            renderBoard(document.querySelector('input[name="board-radio"]:checked').value);
-        }, () => {
             // Jawaban salah, kembalikan pemain ke posisi ular awal
             player.x = originalX;
             player.y = originalY;
+            renderBoard(document.querySelector('input[name="board-radio"]:checked').value);
+            
+        }, () => {
+            // Jawaban benar, pemain tetap di posisi ular akhir
             renderBoard(document.querySelector('input[name="board-radio"]:checked').value);
         });
     }
